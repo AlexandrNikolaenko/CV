@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poiret+One&display=swap");
+
+:root {
+  --primary: #0b0c10;
+  --main: #1f2833;
+  --text: #c5c6c7;
+  --light-accent: #66fcf1;
+  --dark-accent: #45a29e;
+  --font-manrope: "Manrope", sans-serif;
+  --font-poiret: "Poiret One", sans-serif;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@theme inline {
+  --color-light-accent: var(--light-accent);
+  --color-dark-accent: var(--dark-accent);
+  --color-text: var(--text);
+  --color-primary: var(--primary);
+  --color-main: var(--main);
+  --font-manrope: var(--font-manrope);
+  --font-poiret: var(--font-poiret);
+}
+
+p {
+  font-family: var(--font-manrope);
+  line-height: 170%;
+  letter-spacing: 0.05rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poiret);
+  color: var(--light-accent);
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  appearance: none;
+}
+
+body {
+  background: var(--primary);
+  color: var(--text);
+  font-family: var(--font-manrope);
+}
+
+header {
+  z-index: 1000;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+section {
+  position: relative;
+  overflow-x: hidden;
+}
