@@ -4,11 +4,16 @@ import { BorderButton, FillButton } from "@/components/ui/buttons";
 import Card from "@/components/ui/card";
 import FilterButton, { SkillLabel } from "@/components/ui/filter";
 import Image from "next/image";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { skillCategories, skillsList } from "@/components/data/data";
+import Input from "@/components/ui/input";
+import Link from "next/link";
+import sendMail from "@/api/send-contact-info";
+
 
 export default function Home() {
   const [activeSkills, setActiveSkills] = useState(skillCategories.map(skill => skill.name));
+  const formId = useId();
   
 
   function handleChangeActiveSkills(skill) {
@@ -18,6 +23,21 @@ export default function Home() {
         setActiveSkills(activeSkills.filter((elem) => elem != skill));
       else setActiveSkills(activeSkills.concat(skill));
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(document.getElementById(formId)));
+
+    function onSuccess() {
+      console.log('success');
+    }
+
+    function onError() {
+      console.log('error');
+    }
+
+    sendMail({body: formData, onSuccess, onError});
   }
 
   return (
@@ -125,17 +145,31 @@ export default function Home() {
           <div className="w-full aspect-square">
 
           </div>
-          <div className="w-full">
-            <form>
-
+          <div className="w-full flex flex-col items-center gap-[30px]">
+            <form id={formId} onSubmit={handleSubmit} className="flex flex-col w-full gap-[30px] items-center">
+              <Input placeholder={'Ваше имя'} name={'name'}/>
+              <Input placeholder={'Номер телефона'} name={'phone'}/>
+              <FillButton action={() => {}}>Send</FillButton>
             </form>
             <div className="flex w-full gap-5 items-center text-dark-accent">
               <div className="w-full h-[1px] bg-dark-accent"></div>
               или
               <div className="w-full h-[1px] bg-dark-accent"></div>
             </div>
-            <div>
-
+            <div className="flex gap-5">
+              Contact me by:
+              <Link href={'/#'}>
+                <Image width={40} height={40} src={'/linkedin.svg'} alt="linkedin"/>
+              </Link>
+              <Link href={'https://spb.hh.ru/resume/120d7bfbff0dc9442f0039ed1f346d3466766f'}>
+                <Image width={40} height={40} src={'/hh.svg'} alt="hh"/> 
+              </Link>
+              <Link href={'https://t.me/AliBabagg'}>
+                <Image width={40} height={40} src={'/telegram.svg'} alt="telegram"/>
+              </Link>
+              <Link href={'mailto:nikol.alex06@mail.ru'}>
+                <Image width={40} height={40} src={'/gmail.svg'} alt="gmail"/>
+              </Link>
             </div>
           </div>
         </div>

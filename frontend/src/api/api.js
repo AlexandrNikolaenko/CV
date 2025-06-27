@@ -4,7 +4,7 @@ class HttpRequest {
   #api_host;
 
   constructor() {
-    this.#api_host = "http://api_host";
+    this.#api_host = "http://localhost:5000";
   }
 
   async get({ onError, onSuccess, query }) {
@@ -12,10 +12,6 @@ class HttpRequest {
     try {
       const res = await fetch(this.#api_host.concat(query), {
         method: "GET",
-        credentials: "include",
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("access")}`,
-        },
         cache: "no-cache",
       });
       if (res.ok) {
@@ -36,7 +32,6 @@ class HttpRequest {
     try {
       const res = await fetch(this.#api_host.concat(query), {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,10 +53,8 @@ class HttpRequest {
     try {
       const res = await fetch(this.#api_host.concat(query), {
         method: "PUT",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${window.localStorage.getItem("access")}`,
         },
         body: body,
       });
@@ -81,10 +74,8 @@ class HttpRequest {
     try {
       const res = await fetch(this.#api_host.concat(query), {
         method: "PATCH",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${window.localStorage.getItem("access")}`,
         },
         body: body,
       });
@@ -104,10 +95,8 @@ class HttpRequest {
     try {
       const res = await fetch(this.#api_host.concat(query), {
         method: "DELETE",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${window.localStorage.getItem("access")}`,
         },
       });
       if (res.ok) {
@@ -132,7 +121,7 @@ export default class Api {
 
   async sendMail({ body, onSuccess, onError }) {
     return await this.#httpRequest.post({
-      query: `/getcall`,
+      query: `/sendmail`,
       body: JSON.stringify(body),
       onError,
       onSuccess,

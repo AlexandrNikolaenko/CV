@@ -46,7 +46,12 @@ button {
 }
 
 input {
-  appearance: none;
+  appearance: none !important;
+  outline: none;
+   
+  &:active, &:hover, &:focus {
+    outline: none;
+  }
 }
 
 body {
