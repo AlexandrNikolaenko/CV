@@ -17,11 +17,11 @@ export default function Header() {
           <Link href={"/#skills"}>Навыки</Link>
           <Link href={"/#contact"}>Контакты</Link>
         </nav>
-        <div className="flex px-5 py-2.5 gap-2.5 items-center bg-main/60 border-[1px] border-main rounded-full cursor-pointer">
-          <div className="relative w-[30px] h-[30px]">
+        <div className="flex px-5 py-2.5 max-sm:p-2.5 gap-2.5 items-center bg-main/60 border-[1px] border-main rounded-full cursor-pointer">
+          <div className="relative w-[30px] max-sm:w-6 h-[30px] max-sm:h-6">
             <Image src={"/lang.svg"} fill alt="lang" />
           </div>
-          <span>Русский</span>
+          <span className="max-sm:hidden">Русский</span>
         </div>
       </div>
     </header>

@@ -14,8 +14,8 @@ import sendMail from "@/api/send-contact-info";
 export default function Home() {
   const [activeSkills, setActiveSkills] = useState(skillCategories.map(skill => skill.name));
   const formId = useId();
+  const pdfLinkId = useId();
   
-
   function handleChangeActiveSkills(skill) {
     if (skill == "all") setActiveSkills(skillCategories.map(skill => skill.name));
     else {
@@ -23,6 +23,10 @@ export default function Home() {
         setActiveSkills(activeSkills.filter((elem) => elem != skill));
       else setActiveSkills(activeSkills.concat(skill));
     }
+  }
+
+  function handleDownloadPDF() {
+    document.getElementById(pdfLinkId).click();
   }
 
   function handleSubmit(e) {
@@ -45,17 +49,18 @@ export default function Home() {
       <section className="w-full">
         <div className="wrapper h-screen flex items-center justify-center">
           <div className="flex flex-col items-center gap-[30px] max-w-[545px]">
-            <h1 className="text-center text-light-accent text-[120px] leading-[80%] tracking-[.05rem]">
+            <h1 className="text-center text-light-accent text-[120px] max-sm:min-[300px]:text-[64px] max-[300px]:text-[48px] leading-[80%] tracking-[.05rem]">
               Frontend
               <br />
               Developer
             </h1>
-            <p className="text-center leading-[150%] tracking-[.05rem] text-lg">
-              Меня зовут Александр, я занимаюсь frontend-разработкой более 1,5
+            <p className="text-center leading-[150%] tracking-[.05rem] text-lg max-sm:text-base">
+              Меня зовут Александр, я занимаюсь frontend-разработкой более 2
               лет. Ищу классную команду для работы над интересными проектами
             </p>
-            <div className="flex gap-10 items-center">
-              <BorderButton>
+            <div className="flex max-sm:flex-col gap-10 max-sm:gap-5 items-center">
+              <BorderButton action={handleDownloadPDF}>
+                <Link id={pdfLinkId} href={'/CV_Николаенко_А.И._Фронтенд.pdf'} download={true} className="hidden"/>
                 Donwload CV
                 <Image
                   src={"/download.svg"}
@@ -70,9 +75,9 @@ export default function Home() {
         </div>
       </section>
       <section id="about">
-        <div className="wrapper flex h-screen items-center">
+        <div className="wrapper flex max-md:flex-col-reverse h-screen items-center">
           <div className="flex flex-col gap-10 w-full">
-            <h2 className="text-center text-[64px]">Обо мне</h2>
+            <h2 className="text-center text-[64px] max-sm:min-[300px]:text-[64px] max-[300px]:text-[48px]">Обо мне</h2>
             <p className="text-lg">
               Lorem ipsum dolor sit amet consectetur. Enim aliquam sit pulvinar
               porttitor. Massa duis eu turpis sodales phasellus. Nulla fermentum
@@ -92,11 +97,11 @@ export default function Home() {
         </div>
       </section>
       <section id="skills">
-        <div className="wrapper min-h-screen pb-[150px] flex flex-col items-center gap-10">
-          <h2 className="text-center text-[64px]">Мои навыки</h2>
+        <div className="wrapper min-h-screen pb-[150px] max-md:pb-10 pt-0 max-md:pt-10 flex flex-col items-center gap-10">
+          <h2 className="text-center text-[64px] max-sm:min-[300px]:text-[64px] max-[300px]:text-[48px]">Мои навыки</h2>
           <div className="w-full flex flex-col gap-10">
             <h3 className="text-[40px] text-center">Hard skills</h3>
-            <div className="flex justify-center items-center flex-wrap gap-[30px]">
+            <div className="flex justify-center items-center flex-wrap gap-x-[30px] gap-y-[15px] max-sm:gap-2.5">
               <FilterButton
                 action={() => handleChangeActiveSkills("all")}
                 isActive={activeSkills.length == skillCategories.length}
@@ -125,7 +130,7 @@ export default function Home() {
           </div>
           <div className="w-full flex flex-col gap-10">
             <h3 className="text-[40px] text-center">Soft skills</h3>
-            <div className="grid grid-cols-2 gap-[40px]">
+            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-10 max-md:gap-5">
               <Card image={"/shake-hands.svg"}>
                 Умение договариваться с людьми и разрешать конфликтные ситуации
               </Card>
@@ -141,9 +146,9 @@ export default function Home() {
         </div>
       </section>
       <section id="contact">
-        <div className="wrapper flex gap-0 items-center">
-          <div className="w-full aspect-square">
-
+        <div className="wrapper flex max-md:flex-col gap-2 pb-10 items-center">
+          <div className="w-full aspect-square relative">
+            <Image src={'/FormImage.svg'} alt="get in touch" fill/>
           </div>
           <div className="w-full flex flex-col items-center gap-[30px]">
             <form id={formId} onSubmit={handleSubmit} className="flex flex-col w-full gap-[30px] items-center">
@@ -152,11 +157,11 @@ export default function Home() {
               <FillButton action={() => {}}>Send</FillButton>
             </form>
             <div className="flex w-full gap-5 items-center text-dark-accent">
-              <div className="w-full h-[1px] bg-dark-accent"></div>
+              <div className="w-full h-[1px] bg-dark-accent rounded-full"></div>
               или
-              <div className="w-full h-[1px] bg-dark-accent"></div>
+              <div className="w-full h-[1px] bg-dark-accent rounded-full"></div>
             </div>
-            <div className="flex gap-5">
+            <div className="flex items-center gap-5">
               Contact me by:
               <Link href={'/#'}>
                 <Image width={40} height={40} src={'/linkedin.svg'} alt="linkedin"/>
