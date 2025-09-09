@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poiret+One&display=swap");
+// @import "../../public/fonts/PoiretOne-Regular.ttf";
 
 :root {
   --primary: #0b0c10;
@@ -48,8 +49,10 @@ button {
 input {
   appearance: none !important;
   outline: none;
-   
-  &:active, &:hover, &:focus {
+
+  &:active,
+  &:hover,
+  &:focus {
     outline: none;
   }
 }
@@ -80,7 +83,7 @@ header {
     padding-right: 40px;
     padding-left: 40px;
   }
-  
+
   @media screen and (max-width: 400px) {
     margin: 0;
     padding-right: 10px;
@@ -100,4 +103,40 @@ header {
 section {
   position: relative;
   overflow-x: hidden;
+}
+
+@keyframes light-animation {
+  from {
+    scale: 1.5;
+  }
+
+  50% {
+    scale: 1;
+  }
+
+  to {
+    scale: 1.5;
+  }
+}
+
+@keyframes alter-light-animation {
+  from {
+    scale: 1.5;
+  }
+
+  50% {
+    scale: 1;
+  }
+
+  to {
+    scale: 1.5;
+  }
+}
+
+.light > div {
+  animation: 4s light-animation infinite linear;
+
+  &.alter {
+    animation-name: alter-light-animation;
+  }
 }
